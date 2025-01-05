@@ -21,7 +21,7 @@ df = data.frame( # stockage
 plot(log_inv_LC50 ~ logKow, df)
 
 
-n_compo = 100 # nombre de composés
+n_compo = 1000 # nombre de composés
 logKow = rnorm(n_compo, 2, 1)  # vecteur de Kow
 b0 = -4 # Ordonnée à l'origine
 b1 = .9 # Pente
@@ -51,4 +51,3 @@ fig_LC50_Kow_reg = df %>%
   xlab("log(Kow)") + ylab("log(1/LC50)")
 
 ggsave("outputs/figs/fig_LC50_Kow_reg.png", fig_LC50_Kow_reg)
-
