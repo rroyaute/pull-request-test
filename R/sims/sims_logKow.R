@@ -1,3 +1,7 @@
+library(tidyverse); library(easystats)
+theme_set(theme_bw(14))
+
+
 # Simulations simple pour la relation entre coefficient de partage n-octanol et toxictité
 
 
@@ -31,4 +35,20 @@ df = data.frame( # stockage
 ) 
 
 plot(log_inv_LC50 ~ logKow, df)
+
+# regression linéaire
+lm.tox.Kow = lm(log_inv_LC50 ~ logKow, df)
+model_parameters(lm.tox.Kow)
+saveRDS(lm.tox.Kow, "outputs/mods/lm.tox.Kow.RDS")
+# lm.tox.Kow = readRDS("outputs/mods/lm.tox.Kow.RDS") charger le modele dans l'environnement de travail
+
+
+# Graphique "clean"
+fig_LC50_Kow_reg = df %>% 
+  ggplot(aes(x = logKow, y = log_inv_LC50)) +
+  geom_point(alpha = .3, size = 3) +
+  geom_smooth() +
+  xlab("log(Kow)") + ylab("log(1/LC50)")
+
+ggsave("outputs/figs/fig_LC50_Kow_reg.png", fig_LC50_Kow_reg)
 
